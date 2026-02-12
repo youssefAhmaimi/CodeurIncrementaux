@@ -1,18 +1,18 @@
 #include <Arduino.h>
-
-// put function declarations here:
-int myFunction(int, int);
-
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+#include <ESP32Encoder.h> // https://github.com/madhephaestus/ESP32Encoder.git 
+ 
+#define CLK 13 // CLK ENCODER 
+#define DT 15 // DT ENCODER 
+ 
+ESP32Encoder encoderGauche;
+ESP32Encoder encoderDroit;
+void setup () { 
+  encoderGauche.attachHalfQuad ( DT, CLK );
+  encoderGauche.setCount ( 0 );
+  Serial.begin ( 115200 );
 }
-
-void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
-}
+ 
+void loop () {    
+  long newPosition = encoderGauche.getCount() / 2;
+  Serial.println(newPosition);
+} 
